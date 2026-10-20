@@ -27,9 +27,24 @@ public class ClienteController {
         return clienteService.listarTodos();
     }
 
+    @GetMapping("/buscar")
+    public List<Cliente> buscarPorNome(@RequestParam String nome) {
+        return clienteService.buscarPorNome(nome);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Cliente> buscarPorId(@PathVariable Long id) {
         return clienteService.buscarPorId(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Cliente> atualizar(
+            @PathVariable Long id,
+            @RequestBody Cliente cliente) {
+
+        return clienteService.atualizar(id, cliente)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
