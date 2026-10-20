@@ -15,7 +15,7 @@ public class ClienteRepository {
     private final Map<Long, Cliente> clientes = new LinkedHashMap<>();
     private long proximoId = 1;
 
-    public Cliente save(Cliente cliente) {
+    public Cliente salvar(Cliente cliente) {
         Long id = cliente.id();
 
         if (id == null) {
@@ -28,26 +28,26 @@ public class ClienteRepository {
         return salvo;
     }
 
-    public List<Cliente> findAll() {
+    public List<Cliente> listarTodos() {
         return new ArrayList<>(clientes.values());
     }
 
-    public List<Cliente> findByNome(String nome) {
+    public List<Cliente> buscarPorNome(String nome) {
         return clientes.values().stream()
                 .filter(c -> c.nome() != null
                         && c.nome().equalsIgnoreCase(nome))
                 .toList();
     }
 
-    public Optional<Cliente> findById(Long id) {
+    public Optional<Cliente> buscarPorId(Long id) {
         return Optional.ofNullable(clientes.get(id));
     }
 
-    public boolean existsById(Long id) {
+    public boolean existePorId(Long id) {
         return clientes.containsKey(id);
     }
 
-    public void deleteById(Long id) {
-        clientes.remove(id);
+    public boolean excluir(Long id) {
+        return clientes.remove(id) != null;
     }
 }
