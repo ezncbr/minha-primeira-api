@@ -1,43 +1,52 @@
 package com.example.demo.service;
+
 import com.example.demo.model.Cliente;
 import com.example.demo.repository.ClienteRepository;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class ClienteService {
+
     private final ClienteRepository repository;
+
     public ClienteService(ClienteRepository repository) {
         this.repository = repository;
     }
+
     public Cliente salvar(Cliente cliente) {
-        return repository.save(cliente);
+        return repository.salvar(cliente);
     }
+
     public List<Cliente> listarTodos() {
-        return repository.findAll();
+        return repository.listarTodos();
     }
+
     public List<Cliente> buscarPorNome(String nome) {
-        return repository.findByNome(nome);
+        return repository.buscarPorNome(nome);
     }
+
     public Optional<Cliente> buscarPorId(Long id) {
-        return repository.findById(id);
+        return repository.buscarPorId(id);
     }
+
     public Optional<Cliente> atualizar(Long id, Cliente cliente) {
-        if (!repository.existsById(id)) {
+        if (!repository.existePorId(id)) {
             return Optional.empty();
         }
+
         Cliente atualizado = new Cliente(
                 id,
                 cliente.nome(),
                 cliente.idade()
         );
-        return Optional.of(repository.save(atualizado));
+
+        return Optional.of(repository.salvar(atualizado));
     }
+
     public boolean excluir(Long id) {
-        if (!repository.existsById(id)) {
-            return false;
-        }
-        repository.deleteById(id);
-        return true;
+        return repository.excluir(id);
     }
 }
