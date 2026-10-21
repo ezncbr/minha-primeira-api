@@ -6,7 +6,7 @@ A proposta é demonstrar o funcionamento de uma API REST, a organização do có
 
 Tecnologias utilizadas
 
-* Java 17
+* Java 25
 * Spring Boot
 * Spring Web
 * Maven
